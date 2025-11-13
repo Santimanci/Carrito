@@ -101,15 +101,15 @@
         </q-card-section>
       </q-card>
       <!-- Lista de productos en el carrito -->
-      <q-card class="q-mt-lg shadow-4">
-        <q-card-section class="q-pa-lg q-pa-md-sm q-pa-xs-xs">
+      <q-card class="q-mt-lg shadow-4 ">
+        <q-card-section class="q-pa-lg q-pa-md-sm q-pa-xs-xs" >
           <div class="text-h5 text-h6-sm text-subtitle1-xs text-weight-bold text-blue-grey-10 q-mb-md">
             🛍️ Productos en el Carrito 
-            <q-badge v-if="mostrarEnvioGratis" color="green" class="q-ml-sm envio-badge">
+            <q-badge v-if="mostrarEnvioGratis" color="black" class="q-ml-sm envio-badge">
               ENVÍO GRATIS
             </q-badge>
           </div>
-          <div v-for="producto in carrito" :key="producto.id" class="item-carrito q-pa-md q-pa-sm-sm q-pa-xs-xs q-mb-sm rounded-borders bg-grey-1 shadow-1">
+          <div v-for="producto in carrito" :key="producto.id" class="item-carrito q-pa-md q-pa-sm-sm q-pa-xs-xs q-mb-sm rounded-borders bg-gree shadow-1">
             <div class="row items-center justify-between full-width item-carrito-content">
               <div class="col-12 col-sm-5 item-info">
                 <div class="text-h6 text-subtitle1-sm text-body1-xs text-weight-medium text-blue-grey-10">{{ producto.nombre }}</div>
