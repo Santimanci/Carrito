@@ -31,13 +31,7 @@
       <h1 class="text-h3 text-weight-bold text-primary q-mb-xs">🛒 Carrito de Compras</h1>
       <p class="text-h6 text-grey-7">Selecciona tus productos favoritos</p>
       
-      <!-- Indicador de envío gratis -->
-      <div v-if="!mostrarEnvioGratis && totalFinal > 500" class="q-mt-md">
-        <q-badge color="orange" class="q-pa-sm">
-          <q-icon name="local_shipping" class="q-mr-sm" />
-          ¡Falta poco! Agrega ${{ (1000 - totalFinal).toFixed(2) }} más para envío gratis
-        </q-badge>
-      </div>
+  
     </div>
 
     <!-- Resumen del carrito -->
@@ -173,11 +167,11 @@
       </div>
       <div class="row justify-center q-col-gutter-lg">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="producto in productos" :key="producto.id">
-          <q-card class="my-card shadow-6 hover-card" flat bordered>
-            <q-card-section class="q-pa-xl text-center">
+          <q-card class="my-card shadow-6 bg-grey-5  hover-card" flat bordered>
+            <q-card-section class="q-pa-sm text-center">
               <div class="text-h2 q-mb-md"></div>
               <div class="text-h6 text-weight-bold text-blue-grey-10">{{ producto.nombre }}</div>
-              <div class="text-h4 text-primary text-weight-bold q-mt-lg q-mb-xs">${{ producto.precio }}</div>
+              <div class="text-h4 text-grey-10 text-weight-bold q-mt-lg q-mb-xs">${{ producto.precio }}</div>
               
               <!-- Badge de envío gratis -->
               <div v-if="mostrarEnvioGratis" class="q-mt-sm">
@@ -193,7 +187,7 @@
             <q-card-actions vertical class="q-pa-lg">
               <!-- Controles de cantidad para cada producto -->
               <div class="controles-producto" v-if="cantidadEnCarrito(producto.id) > 0">
-                <div class="text-caption text-center text-green q-mb-sm">✅ En carrito: {{ cantidadEnCarrito(producto.id) }} unidad(es)</div>
+                <div class="text-caption text-center text-black q-mb-sm">✅ En carrito: {{ cantidadEnCarrito(producto.id) }} unidad(es)</div>
                 <div class="controles-cantidad row justify-center items-center">
                   <q-btn 
                     @click="decrementarCantidad(producto.id)" 
@@ -201,7 +195,7 @@
                     size="sm" 
                     round 
                     dense 
-                    color="primary"
+                    color="red-7"
                     class="shadow-2"
                   />
                   <span class="cantidad q-mx-lg text-h6 text-weight-bold">{{ cantidadEnCarrito(producto.id) }}</span>
@@ -211,7 +205,7 @@
                     size="sm" 
                     round 
                     dense 
-                    color="primary"
+                    color="green-9"
                     class="shadow-2"
                   />
                 </div>
@@ -219,7 +213,7 @@
               <q-btn 
                 v-else 
                 @click="agregarAlCarrito(producto)" 
-                color="primary"
+                color="green-13"
                 icon="add_shopping_cart"
                 label="Agregar al carrito"
                 class="full-width q-mt-md shadow-3"
@@ -297,7 +291,7 @@ const mostrarToast = (titulo, mensaje, icono = 'info', color = 'primary') => {
   // Auto cerrar después de 3 segundos
   setTimeout(() => {
     mostrarNotificacion.value = false
-  }, 1000)
+  }, 800)
 }
 
 // Función para agregar productos al carrito
