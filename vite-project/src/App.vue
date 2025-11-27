@@ -85,7 +85,7 @@
               <!-- Mensaje de progreso -->
               <div v-if="totalFinal < 1000" class="text-center q-mt-sm">
                 <q-badge color="orange" class="q-pa-sm badge-mensaje">
-                  <q-icon name="info" class="q-mr-sm" size="sm" />
+                  <q-icon name="info"    size="sm" />
                   Agrega ${{ (1000 - totalFinal).toFixed(2) }} más para envío gratis
                 </q-badge>
               </div>
@@ -242,8 +242,10 @@
     </q-dialog>
   </div>
 </template>
+
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
+
 // Datos de productos
 const productos = ref([
   { id: 1, nombre: 'Laptop Asus', precio: 100 },
@@ -256,6 +258,7 @@ const productos = ref([
 
 // Carrito de compras
 const carrito = ref([])
+
 // Estados para notificaciones
 const mostrarEnvioGratis = ref(false)
 const mostrarNotificacion = ref(false)
@@ -263,6 +266,7 @@ const notificacionTitulo = ref('')
 const notificacionMensaje = ref('')
 const notificacionIcono = ref('info')
 const notificacionColor = ref('primary')
+
 // Función para mostrar notificación toast
 const mostrarToast = (titulo, mensaje, icono = 'info', color = 'primary') => {
   notificacionTitulo.value = titulo
@@ -275,6 +279,7 @@ const mostrarToast = (titulo, mensaje, icono = 'info', color = 'primary') => {
     mostrarNotificacion.value = false
   }, 800)
 }
+
 // Función para agregar productos al carrito
 const agregarAlCarrito = (producto) => {
   console.log('Agregando producto:', producto)
@@ -301,6 +306,7 @@ const incrementarCantidad = (productoId) => {
     mostrarToast('➕ Cantidad aumentada', 'Producto actualizado en el carrito', 'add', 'primary')
   }
 }
+
 // Función para decrementar cantidad
 const decrementarCantidad = (productoId) => {
   const producto = carrito.value.find(item => item.id === productoId)
@@ -362,25 +368,26 @@ watch(carrito, (nuevoCarrito) => {
   localStorage.setItem('carrito', JSON.stringify(nuevoCarrito))
 }, { deep: true })
 
-
-
-// Cargar carrito desde localStorage al inicializar
-const cargarCarrito = () => {
-  const carritoGuardado = localStorage.getItem('carrito')
-  if (carritoGuardado) {
-    try {
-      carrito.value = JSON.parse(carritoGuardado)
-      console.log('Carrito cargado desde localStorage:', carrito.value)
-    } catch (error) {
-      console.error('Error al cargar el carrito:', error)
-      carrito.value = []
+// Watch para cargar el carrito desde localStorage cuando el componente se monta
+watch(
+  () => localStorage.getItem('carrito'),
+  (nuevoCarritoGuardado, viejoCarritoGuardado) => {
+    if (nuevoCarritoGuardado) {
+      try {
+        carrito.value = JSON.parse(nuevoCarritoGuardado)
+        console.log('Carrito cargado desde localStorage:', carrito.value)
+      } catch (error) {
+        console.error('Error al cargar el carrito:', error)
+        carrito.value = []
+      }
     }
-  }
-}
+  },
+  { immediate: true } // Esto ejecuta el watcher inmediatamente al crearse
+)
 
 // Inicializar
 onMounted(() => {
-  cargarCarrito()
+  // Ya no necesitamos llamar cargarCarrito() aquí porque el watch con immediate:true se encarga
 })
 </script>
 
